@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/apt4eshjx6llufpm?svg=true)](https://ci.appveyor.com/project/yuann369/aqa-2-1)
