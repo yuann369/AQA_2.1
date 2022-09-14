@@ -30,6 +30,7 @@ public class SeleniumTest {
     @AfterEach
     void teardown() {
         driver.quit();
+        driver=null;
     }
 
     @Test
