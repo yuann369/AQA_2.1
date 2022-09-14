@@ -52,25 +52,43 @@ public class SeleniumTest {
     @Test
     void testNameWrong() {
         driver.get("http://localhost:9999");
-        List<WebElement> element = driver.findElements(By.className("input__sub"));
         driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Petrov Alex");
         driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("+79278345612");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button_view_extra")).click();
-        String text = element.get(0).getText();
+        String text = driver.findElement(By.cssSelector("span[data-test-id='name'].input_invalid .input__sub")).getText();
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.",text.trim());
+    }
+
+    @Test
+    void testEmptyName() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("+79278345612");
+        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.className("button_view_extra")).click();
+        String text = driver.findElement(By.cssSelector("span[data-test-id='name'].input_invalid .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения",text.trim());
     }
 
     @Test
     void testPhoneWrong() {
         driver.get("http://localhost:9999");
-        List<WebElement> element = driver.findElements(By.className("input__sub"));
         driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Петров Алексей");
         driver.findElement(By.cssSelector("span[data-test-id='phone'] input")).sendKeys("89278345612");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button_view_extra")).click();
-        String text = element.get(1).getText();
+        String text = driver.findElement(By.cssSelector("span[data-test-id='phone'].input_invalid .input__sub")).getText();
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.",text.trim());
+    }
+
+    @Test
+    void testEmptyPhone() {
+        driver.get("http://localhost:9999");
+        driver.findElement(By.cssSelector("span[data-test-id='name'] input")).sendKeys("Петров Алексей");
+        driver.findElement(By.className("checkbox__box")).click();
+        driver.findElement(By.className("button_view_extra")).click();
+        String text = driver.findElement(By.cssSelector("span[data-test-id='phone'].input_invalid .input__sub")).getText();
+        assertEquals("Поле обязательно для заполнения",text.trim());
     }
 
     @Test
